@@ -1,0 +1,48 @@
+[scene]
+name = "plate"
+domain_size = [2.0, 2.0]
+
+[run]
+print_interval = 3.0
+end_time = 3.0
+steady_tol = 1e-5
+
+[integrator]
+min_refinement_level = 2
+max_refinement_level = 9
+refinement_radius = 2.0
+error_threshold = [0.01, 0.02]
+error_weights = [1.0, 1.0, 1.0, 1.0]
+max_cfl = 0.4
+
+[model.reference_values]
+rho = 1.0
+Ma = 3.0
+p = 1.0
+
+[initial_condition]
+type = "uniform"
+value = "reference"
+
+[[geometry]]
+name = "object"
+shape = "line"
+length = 1.0
+boundary = true
+rotation = [0.0, 0.0, -13.0]
+
+[boundary_conditions.object]
+type = "freeslip"
+
+[boundary_conditions.X.neg]
+type = "inflow"
+fade_in = 0.0
+
+[boundary_conditions.X.pos]
+type = "outflow"
+
+[boundary_conditions.Y.neg]
+type = "outflow"
+
+[boundary_conditions.Y.pos]
+type = "outflow"

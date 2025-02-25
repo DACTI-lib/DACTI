@@ -1,0 +1,56 @@
+[scene]
+name = "shockBubble"
+domain_size = [4.0, 2.0]
+
+[run]
+print_interval = 1e-4
+end_time = 3.0e-3
+
+[integrator]
+min_refinement_level = 2
+max_refinement_level = 9
+refinement_radius = 2.0
+error_threshold = [0.02, 0.04]
+error_weights = [1e-3, 1.0, 0.0, 0.0, 1e-8, 1.0]
+max_cfl = 0.4
+
+[model.reference_values]
+rho = [1000.0, 1.0]
+vel = [0.0,0.0]
+p = 1e5
+alpha = 1.0
+mu_ratio = 1.0
+L  = 0.1
+We = 0.01
+
+[initial_condition]
+type = "jump"
+axis = 0
+location = -1.75
+value_neg = [1031.89, 0.0, 47.46, 0.0, 73002196.4, 1.0]
+value_pos = [1000.0, 0.0, 0.0, 0.0, 1e5, 1.0]
+
+[[geometry]]
+name = "bubble"
+shape = "circle"
+type = "bubble"
+radius = 0.2
+translation = [-1.0,0.0,0.0]
+
+[[refinement_zone]]
+start = [-1.25, -0.3, -2.0]
+end = [-0.5, 0.3, 2.0]
+max_refinement_level = 11
+
+[boundary_conditions.X.neg]
+type = "inflow_r"
+value = [1031.89, 0.0, 47.46, 0.0, 73002196.4, 1.0]
+
+[boundary_conditions.X.pos]
+type = "zeroGradient"
+
+[boundary_conditions.Y.neg]
+type = "zeroGradient"
+
+[boundary_conditions.Y.pos]
+type = "zeroGradient"

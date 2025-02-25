@@ -1,0 +1,55 @@
+[scene]
+name = "wing"
+domain_size = [4.0, 2.0, 4.0]
+visualize_mesh = false
+
+[run]
+print_interval = 0.001
+end_time = 0.1
+
+[integrator]
+min_refinement_level = 2
+max_refinement_level = 9
+max_refinement_level_geom = 9
+refinement_radius = 2.0
+error_threshold = [5e-3, 1e-2]
+error_weights = [1.0, 1e-3, 1e-3, 1e-3, 1e-5]
+max_cfl = 0.4
+
+[model.reference_values]
+rho = 1.2
+Ma = 0.84
+vel_angle = 3.0
+p = 101325.0
+Re = 1e5
+L = 1.0
+
+[initial_condition]
+type = "uniform"
+value = "reference"
+
+[[geometry]]
+name = "wing"
+path = "stl/wing.stl"
+translation = [0.2, -0.5, 0.0]
+
+[boundary_conditions.wing]
+type = "noslip"
+
+[boundary_conditions.X.neg]
+type = "zeroGradient"
+
+[boundary_conditions.X.pos]
+type = "inflow"
+
+[boundary_conditions.Y.neg]
+type = "freeslip"
+
+[boundary_conditions.Y.pos]
+type = "zeroGradient"
+
+[boundary_conditions.Z.neg]
+type = "zeroGradient"
+
+[boundary_conditions.Z.pos]
+type = "zeroGradient"

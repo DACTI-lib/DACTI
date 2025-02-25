@@ -1,0 +1,63 @@
+[scene]
+name = "shockDrop3d"
+domain_size = [4.0, 2.0, 2.0]
+
+[run]
+print_interval = 0.0002
+end_time = 0.01
+
+[integrator]
+min_refinement_level = 2
+max_refinement_level = 9
+refinement_radius = 2.0
+error_threshold = [0.05, 0.1]
+error_weights = [1.0, 0.0, 0.0, 0.0, 0.0, 3e-6, 1.0]
+max_cfl = 0.25
+
+[model.reference_values]
+rho = [1000.0, 1.0]
+vel = [0.0, 0.0, 0.0]
+p = 1e5
+alpha = 0.0
+mu_ratio = 10.0
+L  = 0.1
+We = 0.01
+Re = 10.0
+
+[initial_condition]
+type = "uniform"
+value = "reference"
+
+[[geometry]]
+name = "droplet3d"
+path = "stl/sphere.stl"
+scaling = [0.25, 0.25, 0.25]
+translation = [-1.5,0.0,0.0]
+
+[boundary_conditions.X.neg]
+type = "inflow_r"
+value = [0.0, 2.667, 467.71, 0.0, 0.0, 4.5e5, 0.0]
+
+[[refinement_zone]]
+start = [-1.75, -0.4, -0.4]
+end = [-1.0, 0.4, 0.4]
+max_refinement_level = 10
+
+[boundary_conditions.droplet3d]
+type = "wall"
+slip = "freeslip"
+
+[boundary_conditions.X.pos]
+type = "zeroGradient"
+
+[boundary_conditions.Y.neg]
+type = "zeroGradient"
+
+[boundary_conditions.Y.pos]
+type = "zeroGradient"
+
+[boundary_conditions.Z.neg]
+type = "zeroGradient"
+
+[boundary_conditions.Z.pos]
+type = "zeroGradient"

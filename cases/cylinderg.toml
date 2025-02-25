@@ -1,0 +1,52 @@
+[scene]
+name = "cylinderg"
+domain_size = [8.0, 8.0]
+
+[run]
+print_interval = 0.0015
+end_time = 0.3
+
+[integrator]
+min_refinement_level = 2
+max_refinement_level = 10
+max_refinement_level_geom = 11
+refinement_radius = 2.0
+error_threshold = [5e-3, 1e-2]
+error_weights = [1.0, 0.01, 0.01, 1e-5]
+max_cfl = 0.4
+max_dt = 5e-6
+
+[model.reference_values]
+rho = 1.2
+Ma = 0.3
+vel_angle = 1.0
+p = 101325.0
+L = 0.4
+Re = 100.0
+
+[initial_condition]
+type = "uniform"
+value = "reference"
+
+[[geometry]]
+name = "object"
+shape = "ellipse"
+a = 0.2
+b = 0.2
+translation = [-2.0, 0.0, 0.0]
+
+[boundary_conditions.object]
+type = "noslip"
+
+[boundary_conditions.X.neg]
+type = "inflow"
+fade_in = 0.0
+
+[boundary_conditions.X.pos]
+type = "outflow"
+
+[boundary_conditions.Y.neg]
+type = "freeslip"
+
+[boundary_conditions.Y.pos]
+type = "freeslip"

@@ -1,0 +1,45 @@
+name: Build-sphinx-docs
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write  # Allows pushing to the repo
+
+jobs: 
+  build: 
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3  # Updated to v3 for better token handling
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v2
+        with:
+           python-version: "3.10"
+        
+      - name: Install dependencies
+        run: | 
+          python -m pip install --upgrade pip
+          python -m pip install -U sphinx
+          python -m pip install sphinx-book-theme
+          python -m pip install sphinx-autoapi
+          python -m pip install ghp-import
+
+      - name: Build HTML
+        run: | 
+          cd doc/
+          make html
+
+      - name: Deploy with ghp-import
+        run: | 
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          ghp-import -n -p -f doc/build/html
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Ensures authentication

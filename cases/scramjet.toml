@@ -1,0 +1,59 @@
+[scene]
+name = "scramjet"
+domain_size = [8.0, 2.0]
+
+[run]
+print_interval = 1e-3
+end_time = 1.5e-2
+
+[integrator]
+min_refinement_level = 2
+max_refinement_level = 10
+refinement_radius = 1.5
+error_threshold = [2e-2, 4e-2]
+error_weights = [1.0, 1e-3, 1e-3, 1e-5]
+max_cfl = 0.4
+
+[model.reference_values]
+rho = 1.2
+Ma = 3.5
+vel_angle = 0.0
+p = 101325.0
+
+[initial_condition]
+type = "uniform"
+value = "reference"
+
+[[geometry]]
+name = "object1"
+shape = "triangle"
+v1 = [-4.0, 1.0]
+v2 = [4.0, -0.04]
+v3 = [4.0, 1.0]
+
+[[geometry]]
+name = "object2"
+shape = "quadrilateral"
+v1 = [0.2, -0.75]
+v2 = [-2.0, -0.17]
+v3 = [2.0, -0.17]
+v4 = [3.0, -0.3]
+
+[boundary_conditions.object1]
+type = "freeslip"
+
+[boundary_conditions.object2]
+type = "freeslip"
+
+[boundary_conditions.X.neg]
+type = "inflow"
+fade_in = 0.0
+
+[boundary_conditions.X.pos]
+type = "outflow"
+
+[boundary_conditions.Y.neg]
+type = "freeslip"
+
+[boundary_conditions.Y.pos]
+type = "freeslip"

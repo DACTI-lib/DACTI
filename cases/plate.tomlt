@@ -1,0 +1,48 @@
+[scene]
+name = "plate_{mach}_{level}"
+domain_size = [2.0, 2.0]
+
+[run]
+print_interval = 5.0
+end_time = 5.0
+steady_tol = 1e-5
+
+[integrator]
+min_refinement_level = 2
+max_refinement_level = {level}
+refinement_radius = 2.0
+error_threshold = [1e-3, 5e-3]
+error_weights = [1.0, 1.0, 1.0, 1.0]
+max_cfl = 0.4
+
+[model.reference_values]
+rho = 1.0
+Ma = {mach:.2f}
+p = 1.0
+
+[initial_condition]
+type = "uniform"
+value = "reference"
+
+[[geometry]]
+name = "object"
+shape = "line"
+length = 1.0
+boundary = true
+rotation = [0.0, 0.0, -13.0]
+
+[boundary_conditions.object]
+type = "freeslip"
+
+[boundary_conditions.X.neg]
+type = "inflow"
+fade_in = 0.0
+
+[boundary_conditions.X.pos]
+type = "outflow"
+
+[boundary_conditions.Y.neg]
+type = "outflow"
+
+[boundary_conditions.Y.pos]
+type = "outflow"
