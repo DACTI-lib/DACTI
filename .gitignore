@@ -18,4 +18,4 @@ Testing
 .DS_Store
 convergence.py
 out/
-mesh.stl
+vis/
