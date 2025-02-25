@@ -11,22 +11,20 @@ To download DACTI to your machine, make sure you have `Git <https://git-scm.com/
 
     .. code-block:: shell
 
-        ssh-keygen -t ed25519 -f $HOME/.ssh/id_ed25519_gitlab
+        ssh-keygen -t ed25519 -f $HOME/.ssh/id_ed25519_github
 
     You can skip giving a passphrase by pressing :kbd:`Enter`. 
 
-#.  Add the ``.pub`` key to your GitLab account: 
-
-    :menuselection:`Preferences --> SSH Keys --> add new key` 
+#.  Add the ``.pub`` key to your Github account
    
     .. note::
-        The private key ``id_ed25519_gitlab`` should be kept secret.
+        The private key ``id_ed25519_github`` should be kept secret.
 
 #.  Clone the repository
 
     .. code-block:: shell
 
-        git clone git@gitlab.ethz.ch:dacti/DACTI.git
+        git clone git@github.com:DACTI-lib/DACTI.git
 
 
 Building the code
@@ -102,7 +100,7 @@ To build and run DACTI on Euler
     .. code-block:: shell
 
         cd $HOME
-        git clone git@gitlab.ethz.ch:dacti/DACTI.git
+        git clone git@github.com:DACTI-lib/DACTI.git
 
 #.  Build the code
 
